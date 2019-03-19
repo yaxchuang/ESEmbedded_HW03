@@ -33,7 +33,7 @@ This is the hw03 sample. Please follow the steps below.
 # HW03 Requirements
 
 1. How do C functions pass and return parameters? Please describe the related standard used by the Application Binary Interface (ABI) for the ARM architecture.
-
+~
 2. Modify main.c to observe what you found.
 
 3. You have to state how you designed the observation (code), and how you performed it.
@@ -54,3 +54,44 @@ This is the hw03 sample. Please follow the steps below.
 --------------------
 
 **★★★ Please take your note here ★★★**
+
+
+```assembly
+00000030 <reset_handler>:
+  30:	b580      	push	{r7, lr}       -> r7 儲存sp的位址、lr 保護以免破壞之前的數據
+  32:	b082      	sub	sp, #8
+  34:	af00      	add	r7, sp, #0
+  36:	2300      	movs	r3, #0         -> r3 = 0
+  38:	607b      	str	r3, [r7, #4]   -> 儲存 r3 (位址4)到stack(r7)
+  3a:	2005      	movs	r0, #5         -> r0 = 5
+  3c:	210a      	movs	r1, #10        -> r1 = 10
+  3e:	220f      	movs	r2, #15        -> r2 = 15
+  40:	2314      	movs	r3, #20        -> r3 = 20
+  42:	f7ff ffe1 	bl	8 <add>
+  46:	6078      	str	r0, [r7, #4]   -> 儲存 r0 (位址4)到stack(r7)
+  48:	e7fe      	b.n	48 <reset_handler+0x18>
+  4a:	bf00      	nop
+
+00000008 <add>:
+   8:	b480      	push	{r7}
+   a:	b085      	sub	sp, #20
+   c:	af00      	add	r7, sp, #0
+   e:	60f8      	str	r0, [r7, #12]  -> 儲存 r0 (位址12)到stack(r7)
+  10:	60b9      	str	r1, [r7, #8]   -> 儲存 r1 (位址8)到stack(r7)
+  12:	607a      	str	r2, [r7, #4]   -> 儲存 r2 (位址4)到stack(r7)
+  14:	603b      	str	r3, [r7, #0]   -> 儲存 r3 (位址0)到stack(r7)
+  16:	68fa      	ldr	r2, [r7, #12]  -> 從stack上的變量搬到r2
+  18:	68bb      	ldr	r3, [r7, #8]   -> 從stack上的變量搬到r3
+  1a:	441a      	add	r2, r3
+  1c:	687b      	ldr	r3, [r7, #4]   -> 從stack上的變量搬到r3
+  1e:	441a      	add	r2, r3
+  20:	683b      	ldr	r3, [r7, #0]   -> 從stack上的變量搬到r3
+  22:	4413      	add	r3, r2
+  24:	4618      	mov	r0, r3         -> 準備回傳值 r0=5+10+15+20=50
+  26:	3714      	adds	r7, #20
+  28:	46bd      	mov	sp, r7
+  2a:	f85d 7b04 	ldr.w	r7, [sp], #4
+  2e:	4770      	bx	lr
+
+
+```
