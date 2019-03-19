@@ -8,5 +8,5 @@ void reset_handler(void)
 	int sum=0;
 	sum=add(5,10,15,20);
 	while (1)
-		;
+	;
 }
