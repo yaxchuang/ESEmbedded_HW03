@@ -55,7 +55,7 @@ This is the hw03 sample. Please follow the steps below.
 
 **★★★ Please take your note here ★★★**
 
-將設計完的main.c檔執行make，make完觀察反組譯後結果為`arm-none-eabi-objdump -D main.elf`，並參考 Procedure Call Standard for the ARM Architecture(http://infocenter.arm.com/help/topic/com.arm.doc.ihi0042f/IHI0042F_aapcs.pdf)知道核心暫存器與
+將設計完的main.c檔執行make，make完觀察反組譯後結果為`arm-none-eabi-objdump -D main.elf`，並參考 [Procedure Call Standard for the ARM Architecture](http://infocenter.arm.com/help/topic/com.arm.doc.ihi0042f/IHI0042F_aapcs.pdf) 知道核心暫存器與
 參數的傳遞的規則。
 
 ```main.c
