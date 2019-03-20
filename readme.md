@@ -55,7 +55,24 @@ This is the hw03 sample. Please follow the steps below.
 
 **★★★ Please take your note here ★★★**
 
-make 完觀察組譯後結果"arm-none-eabi-objdump -D main.elf"
+將設計完的main.c檔執行make，make完觀察反組譯後結果為`arm-none-eabi-objdump -D main.elf`，並參考 Procedure Call Standard for the ARM Architecture(http://infocenter.arm.com/help/topic/com.arm.doc.ihi0042f/IHI0042F_aapcs.pdf)知道核心暫存器與
+參數的傳遞的規則。
+
+```main.c
+
+int add(int a,int b,int c,int d)
+{
+	return a+b+c+d;
+}
+
+void reset_handler(void)
+{
+	int sum=0;
+	sum=add(5,10,15,20);
+	while (1)
+	;
+}
+```
 
 ```assembly
 00000030 <reset_handler>:
