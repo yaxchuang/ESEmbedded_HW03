@@ -55,6 +55,7 @@ This is the hw03 sample. Please follow the steps below.
 
 **★★★ Please take your note here ★★★**
 
+make 完觀察組譯後結果"arm-none-eabi-objdump -D main.elf"
 
 ```assembly
 00000030 <reset_handler>:
